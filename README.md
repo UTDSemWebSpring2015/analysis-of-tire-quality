@@ -16,9 +16,15 @@ Query Tires dataset
 > cd jena-fuseki1-1.1.2
 > ./s-query --service http://localhost:3030/tires/query 'SELECT * {?s ?p ?o} LIMIT 10'
 
+> HTTP-GET
+> http://localhost:3030/tires/query?query=SELECT * {?s ?p ?o} LIMIT 5
 
 Query DBpedia
 =============
 
 > cd jena-fuseki1-1.1.2
 > ./s-query --service http://dbpedia.org/sparql 'SELECT * {?s ?p ?o} LIMIT 10'
+
+> HTTP-GET
+> http://dbpedia.org/sparql?query=SELECT * {?s ?p ?o} LIMIT 5&format=json
+
