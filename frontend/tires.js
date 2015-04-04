@@ -4,7 +4,17 @@ $(document).ready(function() {
         var brand = $(this).val();
  
         var q = new $.SparqlQuery();
-        q.setQuery('SELECT ?o WHERE {<http://dbpedia.org/resource/' + brand + '> dbpedia-owl:thumbnail ?o } LIMIT 1');
+        q.setQuery('SELECT ?thumb WHERE {' +
+                   '?brand <http://www.w3.org/2000/01/rdf-schema#label> ?label . ' +
+                   'FILTER (REGEX(STR(?label), "' + brand + '", "i")) . ' + 
+                   '?brand dbpedia-owl:thumbnail ?thumb . ' +
+                   '  {' +
+                   '    { ?brand a <http://dbpedia.org/class/yago/TireManufacturers> }' + 
+                   '    UNION' +
+                   '    { ?brand <http://purl.org/dc/terms/subject> <http://dbpedia.org/resource/Category:Tire_manufacturers> }' +
+                   '  }' +
+                   '} LIMIT 1');
+
         $.dbpediaQuery(q, function(result) {
             var logo = result.toString();
             if (logo != null) {
