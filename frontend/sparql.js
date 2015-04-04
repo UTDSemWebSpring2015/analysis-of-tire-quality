@@ -19,7 +19,13 @@
     $.SparqlResult.prototype = {
         // returns the first value of the first result returned
         toString: function() {
-            return 'xx';
+            var str = null;
+            $.each(this.json['results']['bindings'], function(key, value) {
+                $.each(value, function(k, v){
+                    str = v['value'];
+                });
+            });
+            return str;
         },
 
         toStringArray: function() {
@@ -49,7 +55,7 @@
     }
 
     $.dbpediaQuery = function(query, callback) {
-        return $.sparqlQuery(dbpediaEndpoint, query);
+        return $.sparqlQuery(dbpediaEndpoint, query, callback);
     }
     
 }(jQuery));
