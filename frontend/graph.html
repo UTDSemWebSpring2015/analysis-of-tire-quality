@@ -1,0 +1,137 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+function draw(data, labels)
+{
+	$('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'World\'s largest cities per 2014'
+        },
+        subtitle: {
+            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+        },
+        xAxis: {
+            categories:labels
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population (millions)'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+        },
+        series: [{
+            name: 'Population',
+            data: data,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+}
+</script>
+</head>
+	<body>
+<select name ="dropdown" id="drop">
+	<option id="emplty" value=null>Home</option>
+  <option id="temp" value="1">temp</option>
+  <option id="wear "value="2">wear</option>
+  <option id="thread" value="3">thread</option>
+</select>
+<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto">
+<span><center><font face='verdana' size='4'>This is a web page which analyses the Tire Quality Parameters</font></center>
+<br>
+<center><font face='verdana' size='4'>Team Members</font></center>
+<center><font face='verdana' size='4'>Gabriel Nicolae-gxn031000</font></center>
+<center><font face='verdana' size='4'>Navya Padala-nxp131930</font></center>
+<center><font face='verdana' size='4'>Viswesh Muralidharan-vxm130730</font></center>
+</span>
+</div>
+<script type="text/javascript">
+$(function () {
+ $("#drop").change(function () {
+ 		var data =[];
+ 		var labels = [];
+ 		var switcher = $('#drop option:selected').val();
+        if(switcher=="1")
+        {
+        	
+        	data = [
+                ['Shanghai', 23.7],
+                ['Lagos', 16.1],
+                ['Instanbul', 14.2],
+                ['Karachi', 14.0],
+                ['Mumbai', 12.5],
+                ['Lima', 8.9]
+            ];
+    
+    		for(i=0;i<data.length;i++)
+    		{
+				labels[i] = data[i][0];
+    		}
+    		draw(data,labels);
+        }
+        else if(switcher=="2")
+        {
+        	data = [
+                ['Shanghai', 3.7],
+                ['Lagos', 6.1],
+                ['Instanbul', 4.2],
+                ['Karachi', 4.0],
+                ['Mumbai', 2.5],
+                ['Lima', 18.9]
+            ];
+    
+    		for(i=0;i<data.length;i++)
+    		{
+				labels[i] = data[i][0];
+    		}
+    		draw(data,labels);
+        }
+        else if(switcher=="3")
+        {
+        	data = [
+                ['Shanghai', 2.7],
+                ['Lagos', 1.1],
+                ['Instanbul', 1.2],
+                ['Karachi', 4.0],
+                ['Mumbai', 9.5],
+                ['Lima', 1.9]
+            ];
+    
+    		for(i=0;i<data.length;i++)
+    		{
+				labels[i] = data[i][0];
+    		}
+    		draw(data,labels);
+        }
+        else
+        {
+        	$('#container').highcharts().destroy();
+        	$('#container').append("<span><center><font face='verdana' size='4'>This is a web page which analyses the Tire Quality Parameters</font></center></span>");			
+        }
+    });
+});
+</script>
+	</body>
+<html>
