@@ -1,0 +1,41 @@
+<html>
+<head>
+  <script src="jquery-1.11.2.js"></script>
+  <script src="sparql.js"></script>
+  <script>
+   $(document).ready(function() {   
+    $('#stires').click(function() {
+        var query = $('#q').val();
+        var q = new $.SparqlQuery();
+        q.setQuery(query);
+
+        $.tiresQuery(q, function(result) {
+            resultString = JSON.stringify(result.json, null, '  ');
+            $('#r').text(resultString);
+        });
+    });
+    $('#sdbpedia').click(function() {
+        var query = $('#q').val();
+        var q = new $.SparqlQuery();
+        q.setQuery(query);
+
+        $.dbpediaQuery(q, function(result) {
+            resultString = JSON.stringify(result.json, null, '  ');
+            $('#r').text(resultString);
+        });
+    });
+   });
+  </script>
+</head>
+<body>
+  Query:
+  <br/>
+  <textarea id="q" style="width: 800px; height: 200px; "></textarea>
+  <br/>
+  <a href="#" id="stires">Run tires query</a>
+  <a href="#" id="sdbpedia">Run dbpedia query</a>
+  <br/><br/>
+  Result:
+  <pre id="r"></pre>
+</body>
+</html>
