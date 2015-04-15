@@ -1,6 +1,14 @@
 <html>
 <head>
-  <script src="jquery-1.11.2.js"></script>
+  <style type="text/css">
+  img[src=""] {
+    display: none;
+}
+  </style>
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script src="draw.js"></script>
   <script src="spin.js"></script>
   <script src="jquery.spin.js"></script>
   <script src="sparql.js"></script>
@@ -8,18 +16,36 @@
   <script src="tires.js"></script>
 </head>
 <body>
-  <select id="brands">
+<br>
+<span><center><font face='verdana' size='4'>This is a web page which analyses the Tire Quality Parameters</font></center>
+<center><font face='verdana' size='4'>Team Members</font></center>
+<center><font face='verdana' size='4'>Gabriel Nicolae-gxn031000</font></center>
+<center><font face='verdana' size='4'>Navya Padala-nxp131930</font></center>
+<center><font face='verdana' size='4'>Viswesh Muralidharan-vxm130730</font></center>
+</span>
+<br>
+<br>
+<select id="brands">
     <option value="" disabled="disabled">Select a brand</option>
   </select>
-  <br />  
+  <br>
+  <br>
   <select id="sizes">
     <option value="" disabled="disabled">Select a size</option>
   </select>
-  <br />
-  <span id="wiki-link">wikiLink</span>
-  <br />  
-  <img id="brand-logo" alt="No image available." />
-  <br />
-  <pre id="graph-data"></pre>
+  <table width="100%">
+    <tr>
+    <th align="right">
+      <img id="brand-logo" />
+    </th>
+    </tr>
+  </table>
+  
+    
+ 
+
+  <!--<a id="wiki-link" href="">Wikipedia</a>-->
+  <!--<pre id="graph-data"></pre>-->
+  <div id="container" style="overflow: scroll;">
 </body>
 </html>

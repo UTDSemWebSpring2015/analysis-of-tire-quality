@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    
+    var imagesrc;
+    var wikiurl;
     $.getAllBrands(
         function(listOfBrands) {
             // listOfBrands: string[]
@@ -16,13 +17,18 @@ $(document).ready(function() {
         
     $('#brands').change(function() {
         var brand = $(this).val();
+        var chart = $('#container').highcharts();
+        if(typeof chart != 'undefined')
+        {
+            chart.destroy();
+            $('#brand-logo').attr("src", "");
+        }
         $.getBrandSizes(
             brand,
             function(listOfSizes) {
                 // listOfSizes: string[]
                 $('#sizes').find('option').remove();
                 $('#sizes').append($("<option></option>")
-                                   .attr("disabled", "disabled")
                                    .text("Select a size"));
                 $.each(listOfSizes, function(key, value) {                    
                     $('#sizes').append($("<option></option>")
@@ -38,7 +44,9 @@ $(document).ready(function() {
             brand,
             function(wikiLink) {
                 // wikiLink: string
-                $('#wiki-link').text(wikiLink);
+                wikiurl = wikiLink;
+                //$('#wiki-link').attr("href",wikiLink);
+                //$('#wiki-link').name(brand);
             },
             function(error) {
                 // error: string
@@ -48,6 +56,8 @@ $(document).ready(function() {
             brand,
             function(logo) {
                 // logo: string
+                imagesrc = logo;
+                $('#brand-logo').show();
                 $('#brand-logo').attr("src", logo);
             },
             function(error) {
@@ -64,7 +74,8 @@ $(document).ready(function() {
             size,
             function(graphData) {
                 // graphData: string[][]
-                $('#graph-data').text(JSON.stringify(graphData, null, '  '));
+                process(graphData,imagesrc,wikiurl);
+                //$('#graph-data').text(JSON.stringify(graphData, null, '  '));
             },
             function(error) {
                 // error: string
