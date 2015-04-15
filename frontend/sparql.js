@@ -36,26 +36,47 @@
                 });
             });
             return array;
-        }        
+        },   
+
+        toGraphData: function() {
+            var graphData = {};
+            var self = this;            
+            $.each(self.json['head']['vars'], function(index, variable) {
+                var row = [];
+                $.each(self.json['results']['bindings'], function(key, value) {
+                    row.push(value[variable]['value']);
+                });
+                graphData[variable] = row;
+            });
+            return graphData;
+        }       
     };
     
     var tiresEndpoint = 'https://analysis-of-tire-quality.herokuapp.com/tires/query?query=';
     var dbpediaEndpoint = 'http://dbpedia.org/sparql?format=json&query=';
 
-    $.sparqlQuery = function(endpoint, query, callback) {
+    $.sparqlQuery = function(endpoint, query, onSuccess, onFailure) {
         var url = endpoint + query.encode();
-        $.getJSON(url, function(data) {
-            var result = new $.SparqlResult(data);
-            callback(result);
-        });
+        $.getJSON(url)
+            .success(function(data) {
+                var result = new $.SparqlResult(data);
+                if (onSuccess && typeof onSuccess !== 'undefined') {
+                    onSuccess(result);
+                }
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                if (onFailure && typeof onFailure !== 'undefined') {
+                    onFailure(error);
+                }
+            });
     };
 
-    $.tiresQuery = function(query, callback) {
-        return $.sparqlQuery(tiresEndpoint, query, callback);
+    $.tiresQuery = function(query, onSuccess, onFailure) {
+        return $.sparqlQuery(tiresEndpoint, query, onSuccess, onFailure);
     }
 
-    $.dbpediaQuery = function(query, callback) {
-        return $.sparqlQuery(dbpediaEndpoint, query, callback);
+    $.dbpediaQuery = function(query, onSuccess, onFailure) {
+        return $.sparqlQuery(dbpediaEndpoint, query, onSuccess, onFailure);
     }
     
 }(jQuery));

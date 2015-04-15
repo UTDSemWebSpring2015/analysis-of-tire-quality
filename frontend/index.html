@@ -1,14 +1,25 @@
 <html>
 <head>
   <script src="jquery-1.11.2.js"></script>
+  <script src="spin.js"></script>
+  <script src="jquery.spin.js"></script>
   <script src="sparql.js"></script>
+  <script src="queries.js"></script>
   <script src="tires.js"></script>
 </head>
 <body>
   <select id="brands">
     <option value="" disabled="disabled">Select a brand</option>
   </select>
+  <br />  
+  <select id="sizes">
+    <option value="" disabled="disabled">Select a size</option>
+  </select>
   <br />
+  <span id="wiki-link">wikiLink</span>
+  <br />  
   <img id="brand-logo" alt="No image available." />
+  <br />
+  <pre id="graph-data"></pre>
 </body>
 </html>
