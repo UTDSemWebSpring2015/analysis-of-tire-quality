@@ -55,9 +55,9 @@ function process(graphdata,imagesrc,wikiurl)
         tracnumbers[i] = 100;
     }
     }
-    draw(tirelines,wearnumbers,tempnumbers,tracnumbers,imagesrc,wikiurl);
+    draw(tirelines,wearnumbers,tempnumbers,tracnumbers,imagesrc,wikiurl,temp,trac);
 }
-function draw(tirelines, wear,temp,trac,imagesrc,wikiurl)
+function draw(tirelines, wear,temp,trac,imagesrc,wikiurl,tempstr,tracstr)
 {
     $('#container').highcharts({
         chart: {
@@ -82,6 +82,26 @@ function draw(tirelines, wear,temp,trac,imagesrc,wikiurl)
                 text: 'Quality Parameters'
             }
         },
+        tooltip: {
+            formatter: function () {
+                var serieI = this.series.index;
+                var index = tirelines.indexOf(this.x);
+                var returnvar;
+                if(serieI==0)
+                {
+                    returnvar =  this.x +" -- Wear : "+wear[index];
+                }
+                else if(serieI==1)
+                {
+                    returnvar = this.x+" -- Temperature : "+tempstr[index];
+                }
+                else if(serieI==2)
+                {
+                    returnvar = this.x+" -- Track : "+tracstr[index];
+                }
+                return returnvar;
+            }
+        },
         legend: {
             align: 'right',
             verticalAlign: 'top',
@@ -97,7 +117,7 @@ function draw(tirelines, wear,temp,trac,imagesrc,wikiurl)
         },
         series: [{
             name: 'wear',
-            data: wear
+            data: wear,
         },
         {
             name: 'Temperature',
